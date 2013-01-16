@@ -1,6 +1,7 @@
 <?php
 return array(
     'zf2tipme' => array(
+        'test_mode'          => true,
         'stripe_secret_key'  => '{{{YOUR_STRIPE_SECRET_KEY_HERE}}}',
         'stripe_publish_key' => '{{{YOUR_STRIPE_PUBLISHABLE_KEY_HERE}}}',
     ),

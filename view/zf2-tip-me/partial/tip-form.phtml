@@ -1,43 +1,25 @@
 <style>
-    .no-spinner::-webkit-outer-spin-button,
-    .no-spinner::-webkit-inner-spin-button {
-        display: none;
-    }
-    #tipForm {
-        display: none;
-    }
-    .control-group hr {
-        margin: 2px 0;
-    }
-    .control-label {
-        font-weight: bold;
-    }
-    .controls .errors {
-        display: none;
-    }
-    .spin {
-        display: none;
-        width: 20px;
-        height: 20px;
-        position: relative;
-        top: 5px;
-        margin-top: -5px;
-    }
+    #tipForm, .controls .errors { display: none; }
 </style>
 
-<!-- to display errors returned by createToken -->
 <?php
 $errors = $this->form->getMessages();
 if (!empty($errors)) {
-    ?><pre><?php print_r($errors); ?></pre><?php
+    ?><div class="tipme-errors alert alert-error">
+        <h4>Error!</h4>
+        <?php echo $this->formElementErrors($form); ?>
+    </div><?php
 } ?>
-
 
 <?php echo $this->form()->openTag(
     $this->form->setAttribute('class', 'form-horizontal')
 ); ?>
 <fieldset>
-    <legend>Send a one-time gift</legend>
+    <legend>Send a one-time gift
+        <?php if ($this->form->isTestMode()) { ?>
+            <?php echo $this->partial('zf2-tip-me/partial/test-data-btn'); ?>
+        <?php } ?>
+    </legend>
 
     <div class="control-group gift-group">
         <label class="control-label" for="tipOption">Choose a gift to give</label>
@@ -48,11 +30,12 @@ if (!empty($errors)) {
                 ))
             ); ?>
             <span class="badge badge-important errors"></span>
+            <span class="gift-image"></span>
         </div>
     </div>
 
     <div class="control-group cardNumber-group">
-        <label class="control-label" for="cardNumber">Credit Card Number</label>
+        <label class="control-label" for="cardNumber">Credit Card</label>
         <div class="controls">
             <input id="cardNumber" type="number" size="20" autocomplete="off" placeholder="XXXX XXXX XXXX XXXX"
                    required="required" class="no-spinner"/>
@@ -66,7 +49,7 @@ if (!empty($errors)) {
             <input id="cardExpiryMonth" type="number" size="2" class="input-mini" min="1" max="12" required="required"
                    placeholder="MM" autocomplete="off"/>
             <span> / </span>
-            <input id="cardExpiryYear" type="number" size="4" class="input-small"  min="<?php echo date('Y') - 1; ?>"
+            <input id="cardExpiryYear" type="number" size="4" class="input-mini"  min="<?php echo date('Y') - 1; ?>"
                    max="<?php echo date('Y') + 30; ?>" required="required" placeholder="YYYY" autocomplete="off"/>
             <span class="badge badge-important errors"></span>
         </div>
@@ -75,18 +58,10 @@ if (!empty($errors)) {
     <div class="control-group cardCvc-group">
         <label class="control-label" for="cardCVC">CVC</label>
         <div class="controls">
-            <input id="cardCvc" type="number" size="4" autocomplete="off" min="99" max="9999" required="required"
+            <input id="cardCvc" type="number" size="4" autocomplete="off" min="100" max="9999" required="required"
                    class="input-mini no-spinner"/>
-            <span class="help-inline card-images"></span>
+            <span class="card-images"></span>
             <span class="badge badge-important errors"></span>
-        </div>
-    </div>
-
-    <div class="control-group zip-group">
-        <label class="control-label" for="cardZip">Zip Code</label>
-        <div class="controls">
-            <input id="cardZip" type="number" size="5" autocomplete="off" min="0" max="99999" required="required"
-                   class="input-mini no-spinner"/>
         </div>
     </div>
 
@@ -105,21 +80,22 @@ if (!empty($errors)) {
                         ->setAttribute('rows', 2)
                 ); ?>
             <small class="help-inline">(Optional)</small>
+            <div class="input-large">
+                <small class="muted">200 characters maximum, text only.</small>
+            </div>
         </div>
     </div>
 
     <div class="control-group email-group">
-        <label class="control-label">Email</label>
+        <label class="control-label">Email Address<br>or Twitter Handle</label>
         <div class="controls">
-            <?php echo $this->formEmail(
+            <?php echo $this->formText(
                     $this->form->get('email')
                         ->setAttribute('class', 'input-large')
-                        ->setAttribute('placeholder', 'email@address.com')
+                        ->setAttribute('placeholder', '@twitter')
                 ); ?>
             <small class="help-inline">(Optional)</small>
-            <small class="help-block input-large muted">
-                I will <strong>only</strong> use your email address to send a thank you message. No spam.
-            </small>
+            <?php echo $this->placeholder('tipMe_emailNote'); ?>
         </div>
     </div>
 
@@ -131,152 +107,22 @@ if (!empty($errors)) {
                 <button type="submit" class="btn btn-primary btn-submit">
                     Purchase gift for <?php echo $this->form->getRecipientName(); ?>
                     <span class="spin"></span></button>
-                <button id="testDataBtn" type="button" class="btn btn-small">Fill Test Data</button>
+
             </div>
-            <div>
-                <small class="muted secured">Secured using 256-bit SSL encryption</small>
-            </div>
+            <?php echo $this->placeholder('tipMe_securityMessage'); ?>
         </div>
     </div>
 </fieldset>
 </form>
-<noscript><p>JavaScript is required for this form.</p></noscript>
 
-<script type="text/javascript" src="https://js.stripe.com/v1/"></script>
 <script type="text/javascript">
-    // this identifies your website in the createToken call below
-    Stripe.setPublishableKey('<?php echo $this->form->getStripePublishKey(); ?>');
-    var recipientName = '<?php echo $this->form->getRecipientName(); ?>';
-
-    var $tipForm, $submitBtn;
-    var spinner = new Spinner({
-        lines: 9, // The number of lines to draw
-        length: 2, // The length of each line
-        width: 2, // The line thickness
-        radius: 3, // The radius of the inner circle
-        corners: 1, // Corner roundness (0..1)
-        rotate: 0, // The rotation offset
-        color: '#fff', // #rgb or #rrggbb
-        speed: 1, // Rounds per second
-        trail: 60, // Afterglow percentage
-        shadow: false, // Whether to render a shadow
-        hwaccel: false, // Whether to use hardware acceleration
-        className: 'spinner', // The CSS class to assign to the spinner
-        zIndex: 2e9, // The z-index (defaults to 2000000000)
-        top: 'auto', // Top position relative to parent in px
-        left: 'auto' // Left position relative to parent in px
-    });
-
-    function disableSubmitBtn() {
-        $submitBtn.attr("disabled", "disabled");
-        spinner.spin(
-            $('.spin', $submitBtn).css('display', 'inline-block')[0]
-        );
-    }
-
-    function enableSubmitBtn() {
-        $submitBtn.removeAttr("disabled");
-        spinner.stop();
-        $('.spin', $submitBtn).hide();
-    }
-
-    function showError(group, message) {
-        $('.' + group + '-group .errors').html(message).show();
-        $('.' + group + '-group', $tipForm).addClass('error');
-    }
-
-    function hideError(group) {
-        $('.' + group + '-group .errors').hide();
-        $('.' + group + '-group', $tipForm).removeClass('error');
-    }
-
-    function tipFormValidate() {
-        var isValid = true;
-        var focus   = null;
-
-        hideError('gift');
-        if ($('input[name=tipOption]:checked', $tipForm).length == 0) {
-            showError('gift', 'Please select a gift');
-            isValid = false; focus = '#tipOption';
-        }
-        hideError('cardNumber');
-        if (!Stripe.validateCardNumber($('#cardNumber').val())) {
-            showError('cardNumber', 'Invalid credit card number');
-            isValid = false; focus = focus || '#cardNumber';
-        }
-        hideError('expiration');
-        if (!Stripe.validateExpiry($('#cardExpiryMonth').val(), $('#cardExpiryYear').val())) {
-            showError('expiration', 'Invalid credit card expiration');
-            isValid = false; focus = focus || '#cardExpiryMonth';
-        }
-        hideError('cardCvc');
-        if (!Stripe.validateCVC($('#cardCvc').val())) {
-            showError('cardCvc', 'Invalid verification code');
-            isValid = false; focus = focus || '#cardCvc';
-        }
-
-        if (focus) {
-            $(focus).focus();
-        }
-        return isValid;
-    }
-
-    function tipFormStripeResponseHandler(status, response) {
-        if (response.error) {
-            enableSubmitBtn();
-            // show the errors on the form
-            $(".cardNumber-group .errors", $tipForm).html(response.error.message);
-            $(".cardNumber-group, .expiration-group, .cardCvc-group, .zip-group", $tipForm).addClass('error');
-        } else {
-            // token contains id, last4, and card type
-            var token = response['id'];
-            var amount   = $('input[name=tipOption]:checked', $tipForm).data('amount');
-            var cardType = Stripe.cardType($('#cardNumber').val());
-            if (window.confirm('Send a gift amount of $' + amount +
-                    ' from your ' + cardType + ' card to ' + recipientName + '?')) {
-                // insert the token into the form so it gets submitted to the server
-                $('#stripeToken').val(token);
-                // and submit
-                $tipForm.get(0).submit();
-            } else {
-                enableSubmitBtn();
-            }
-        }
-    }
-
-    $(document).ready(function() {
-        $tipForm = $("#<?php echo $this->form->getName(); ?>");
-        $tipForm.show();
-
-        $submitBtn = $('.btn-submit', $tipForm);
-        $tipForm.submit(function(event) {
-            event.preventDefault(); // submit from callback
-
-            // disable the submit button to prevent repeated clicks
-            disableSubmitBtn();
-
-            if (!tipFormValidate()) {
-                enableSubmitBtn();
-                return;
-            }
-
-            // createToken returns immediately - the supplied callback submits the form if there are no errors
-            Stripe.createToken({
-                number:      $('#cardNumber').val(),
-                cvc:         $('#cardCvc').val(),
-                exp_month:   $('#cardExpiryMonth').val(),
-                exp_year:    $('#cardExpiryYear').val(),
-                address_zip: $('#cardZip').val
-            }, tipFormStripeResponseHandler);
-        });
-
-        $("#testDataBtn").click(function() {
-            $('#cardNumber').val('4242424242424242');
-            $('#cardCvc').val('123');
-            $('#cardExpiryMonth').val('10');
-            $('#cardExpiryYear').val('2043');
-            $('#cardZip').val('12345');
-            return false;
+    $(function() {
+        tipMe.init({
+            stripePubKey   : '<?php echo $this->form->getStripePublishKey(); ?>',
+            recipientName  : '<?php echo $this->form->getRecipientName(); ?>',
+            formSelector   : '#<?php echo $this->form->getName(); ?>',
+            confirmMessage : '<?php echo $this->form->getConfirmMessage(); ?>'
         });
     });
 </script>
+

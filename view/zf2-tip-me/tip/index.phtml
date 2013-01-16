@@ -1,8 +1,48 @@
-<h1>Like my work?</h1>
+<?php
+$this->inlineScript()
+    ->appendFile($this->basePath() . '/tip-me-assets/js/spin.min.js')
+    ->appendFile("https://js.stripe.com/v1/")
+    ->appendFile($this->basePath() . '/tip-me-assets/js/tip-me.js');
+$this->headLink()->appendStylesheet($this->basePath() . '/tip-me-assets/css/style.css');
+?>
 
+<div class="page-header">
+    <h1>Enjoy my work?
+    <iframe src="http://ghbtns.com/github-btn.html?user=cgmartin&repo=ZF2FileUploadExamples&type=fork&count=true"
+            allowtransparency="true" frameborder="0" scrolling="0" width="95" height="20" class="pull-right"></iframe>
+    </h1>
+</div>
 <p>
-    If you particularly enjoy the open source projects I've shared,
-    I am most appreciative of the gifts below.
+    If you've used any of my open source projects and are
+    feeling generous, donations of my favorite "coding fuel"
+    are much appreciated.
 </p>
+
+<noscript>
+    <div class="alert alert-error">
+        <h4>Error!</h4>
+        JavaScript must be enabled for this page to work.
+    </div>
+</noscript>
+
+<?php
+// Email Note placeholder
+$this->placeholder('tipMe_emailNote')->captureStart(); ?>
+    <div class="input-large">
+        <small class="muted">I will <strong>only</strong> use your email address to send a thank you message. No spam.</small>
+    </div>
+<?php $this->placeholder('tipMe_emailNote')->captureEnd(); ?>
+
+<?php
+// Security Message placeholder
+$this->placeholder('tipMe_securityMessage')->captureStart(); ?>
+    <div>
+        <small class="muted secured">
+            <i class="icon-lock"></i> Secured using
+            <a href="https://stripe.com/us/help/faq#security-and-pci">Stripe</a>
+            and 256-bit SSL encryption.
+        </small>
+    </div>
+<?php $this->placeholder('tipMe_securityMessage')->captureEnd(); ?>
 
 <?php echo $this->partial('zf2-tip-me/partial/tip-form', array('form' => $this->form)); ?>

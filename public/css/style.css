@@ -1,0 +1,27 @@
+.no-spinner::-webkit-outer-spin-button,
+.no-spinner::-webkit-inner-spin-button {
+    display: none;
+}
+
+.tipme-errors ul {
+    margin-bottom: 0;
+}
+
+
+#tipForm .control-group hr {
+    margin: 2px 0;
+}
+#tipForm .control-label {
+    font-weight: bold;
+}
+#tipForm .spin {
+    display: none;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    top: 5px;
+    margin-top: -5px;
+}
+#tipForm .gift-image img {
+    width: 200px; height: 150px;
+}

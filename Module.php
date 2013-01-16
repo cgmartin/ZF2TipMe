@@ -10,6 +10,9 @@
 namespace ZF2TipMe;
 
 use Zend\EventManager\EventInterface as Event;
+use Zend\Log;
+use Zend\Mail\Transport\File as FileTransport;
+use Zend\Mail\Transport\FileOptions;
 use Zend\ModuleManager\ModuleManager;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\Mvc\MvcEvent;
@@ -75,6 +78,27 @@ class Module implements AutoloaderProviderInterface
                 'zf2tipme_tipform' => function($sm) {
                     $config = $sm->get('config');
                     return new TipForm('tipForm', $config['zf2tipme']);
+                },
+
+                'zf2tipme_logger' => function($sm) {
+                    $config = $sm->get('config');
+                    $writer = new Log\Writer\Stream($config['zf2tipme']['error_log']);
+                    $logger = new Log\Logger();
+                    $logger->addWriter($writer);
+                    return $logger;
+                },
+
+                'zf2tipme_mailtransport' => function($sm) {
+                    $config = $sm->get('config');
+                    $transport = new FileTransport();
+                    $options   = new FileOptions(array(
+                        'path'     => $config['zf2tipme']['mail_dir'],
+                        'callback' => function (FileTransport $transport) {
+                            return 'Message_' . microtime(true) . '_' . mt_rand() . '.txt';
+                        },
+                    ));
+                    $transport->setOptions($options);
+                    return $transport;
                 },
             ),
         );

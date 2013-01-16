@@ -1,11 +1,48 @@
-<h1>You've made my day!</h1>
+<div class="page-header">
+    <h1>You've made my day!</h1>
+</div>
+
+<?php
+switch ($data['tipOption']) {
+    case 'coffee':
+        ?><p>Coffee is my staple drink.
+        No fancy stuff, a <em>Bold Pick of the Day</em> is just what
+        the internet ordered.
+        </p><?php
+        break;
+    case 'redbull':
+        ?><p>Red Bull shall give me wings. My coding agility has increased +17 points.</p><?php
+        break;
+    case 'music':
+        ?><blockquote><p>
+        "Music gives a soul to the universe, wings to the mind, flight to the imagination
+        and life to everything."
+        </p><small>Plato</small></blockquote><?php
+        break;
+}
+?>
+
+<p><img src="<?php echo $this->tipItem['img_src']; ?>"/></p>
 
 <p>
-    Thank you so much for your support.
-    I am most grateful for your gift.
+    Thank you so much for your support. I am most grateful for your gift.
+</p>
+
+<p>
+    <strong>Your credit card has been charged $<?php echo sprintf('%.2f', $this->tipItem['amount']); ?>.</strong>
 </p>
 
 <p>
     If you change your mind, please feel free to email
-    me at foo@bar.com asking for a full refund.
+    me at <a href="mailto:<?php echo $this->refundEmail; ?>"><?php echo $this->refundEmail; ?></a>
+    asking for a full refund.
+</p>
+
+<p>&nbsp;</p>
+<p>
+    <a href="https://twitter.com/c_g_martin" class="twitter-follow-button" data-show-count="false">Follow @c_g_martin</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+    <iframe src="http://ghbtns.com/github-btn.html?user=cgmartin&type=follow&count=true"
+        allowtransparency="true" frameborder="0" scrolling="0" width="165" height="20"></iframe>
 </p>

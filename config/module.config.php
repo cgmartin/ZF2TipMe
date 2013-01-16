@@ -39,11 +39,19 @@ return array(
             'ZF2TipMe' => __DIR__ . '/../view',
         ),
         'template_map' => array(
-            'zf2-tip-me/partial/tip-form' => __DIR__ . '/../view/zf2-tip-me/partial/tip-form.phtml',
+            'zf2-tip-me/partial/tip-form'        => __DIR__ . '/../view/zf2-tip-me/partial/tip-form.phtml',
+            'zf2-tip-me/partial/test-data-btn'   => __DIR__ . '/../view/zf2-tip-me/partial/test-data-btn.phtml',
+            'zf2-tip-me/email/email-notify-text' => __DIR__ . '/../view/zf2-tip-me/email/email-notify-text.phtml',
         ),
     ),
     'zf2tipme' => array(
-        'recipient_name' => 'Christopher Martin',
+        'test_mode'       => false,
+        'error_log'       => './data/log/tipme.log',
+        'mail_dir'       => './data/mail/',
+        'recipient_name'  => 'RECIPIENT',
+        'refund_email'    => 'refunds@email.address',
+        'confirm_message' => 'Send a gift of ${{amount}} from your {{cardType}} card to {{recipient}}?' .
+                             '\nPressing "OK" will process the charge.',
         'tip_options' => array(
             'coffee' => array(
                 'title'   => 'Cup of Starbucks coffee (12 oz)',
@@ -56,7 +64,7 @@ return array(
                 'img_src' => 'http://placehold.it/200x150',
             ),
             'music' => array(
-                'title'  => 'iTunes music (album)',
+                'title'  => 'MP3 music (album)',
                 'amount' => 9.99,
                 'img_src' => 'http://placehold.it/200x150',
             ),

@@ -11,9 +11,9 @@ namespace ZF2TipMe;
 
 use Zend\InputFilter;
 use Zend\Form\Element;
-use ZfcBase\Form\ProvidesEventsForm;
+use Zend\Form\Form;
 
-class TipForm extends ProvidesEventsForm
+class TipForm extends Form
 {
     /** @var array */
     protected $tipMeConfig = array();
@@ -47,34 +47,53 @@ class TipForm extends ProvidesEventsForm
         return $this->tipMeConfig['recipient_name'];
     }
 
+    public function getConfirmMessage()
+    {
+        return $this->tipMeConfig['confirm_message'];
+    }
+
+    public function isTestMode()
+    {
+        return $this->tipMeConfig['test_mode'];
+    }
+
     protected function addElements()
     {
         $tipOptions = $this->getTipOptions();
 
         // Tip Options
         $valueOptions = array();
+        $firstTipKey  = null;
         foreach ($tipOptions as $key => $tipOption) {
+            $firstTipKey = ($firstTipKey) ?: $key;
             $amount = sprintf('%.2f', $tipOption['amount']);
             $valueOptions[$key] = array(
                 'value'      => $key,
                 'label'      =>  '$' . $amount . ' - ' . $tipOption['title'],
-                'attributes' => array('data-amount' => $amount),
+                'attributes' => array(
+                    'data-tip-amount' => $amount,
+                    'data-tip-image'  => $tipOption['img_src'],
+                ),
             );
         }
         $tipOptionRadio = new Element\Radio('tipOption');
         $tipOptionRadio
             ->setAttribute('id', 'tipOption')
-            ->setValueOptions($valueOptions);
+            ->setAttribute('required', true)
+            ->setValueOptions($valueOptions)
+            ->setValue($firstTipKey);
         $this->add($tipOptionRadio);
 
         // Email
-        $email = new Element\Email('email');
+        $email = new Element\Text('email');
         $email->setAttribute('id', 'email');
         $this->add($email);
 
         // Comments
         $message = new Element\Textarea('message');
-        $message->setAttribute('id', 'message');
+        $message
+            ->setAttribute('id', 'message')
+            ->setAttribute('maxlength', 200);
         $this->add($message);
 
         // Hidden token
@@ -105,7 +124,10 @@ class TipForm extends ProvidesEventsForm
         $messageInput->getFilterChain()
             ->attachByName('stripnewlines')
             ->attachByName('striptags')
-            ->attachByName('stringtrim');
+            ->attachByName('stringtrim')
+            ->attach(new SubstrFilter(
+                $this->get('message')->getAttribute('maxlength')
+            ));
         $inputFilter->add($messageInput);
 
         // Hidden token
