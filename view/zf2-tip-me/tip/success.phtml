@@ -1,3 +1,7 @@
+<?php
+$this->headLink()->appendStylesheet($this->basePath() . '/tip-me-assets/css/style.css');
+?>
+
 <div class="page-header">
     <h1>You've made my day!</h1>
 </div>
@@ -6,7 +10,7 @@
 switch ($data['tipOption']) {
     case 'coffee':
         ?><p>Coffee is my staple drink.
-        No fancy stuff, a <em>Bold Pick of the Day</em> is just what
+        No fancy stuff - A <em>Bold Pick of the Day</em> is just what
         the internet ordered.
         </p><?php
         break;
@@ -25,7 +29,7 @@ switch ($data['tipOption']) {
 <p><img src="<?php echo $this->tipItem['img_src']; ?>"/></p>
 
 <p>
-    Thank you so much for your support. I am most grateful for your gift.
+    Thank you so much for your support. I am very grateful for your gift.
 </p>
 
 <p>
