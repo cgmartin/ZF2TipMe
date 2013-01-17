@@ -91,12 +91,7 @@ class Module implements AutoloaderProviderInterface
                 'zf2tipme_mailtransport' => function($sm) {
                     $config = $sm->get('config');
                     $transport = new FileTransport();
-                    $options   = new FileOptions(array(
-                        'path'     => $config['zf2tipme']['mail_dir'],
-                        'callback' => function (FileTransport $transport) {
-                            return 'Message_' . microtime(true) . '_' . mt_rand() . '.txt';
-                        },
-                    ));
+                    $options   = new FileOptions($config['zf2tipme']['mail_transport_options']);
                     $transport->setOptions($options);
                     return $transport;
                 },

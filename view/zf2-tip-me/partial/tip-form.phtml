@@ -121,7 +121,7 @@ if (!empty($errors)) {
             stripePubKey   : '<?php echo $this->form->getStripePublishKey(); ?>',
             recipientName  : '<?php echo $this->form->getRecipientName(); ?>',
             formSelector   : '#<?php echo $this->form->getName(); ?>',
-            confirmMessage : '<?php echo $this->form->getConfirmMessage(); ?>'
+            confirmMessage : '<?php echo $this->confirmMessage; ?>'
         });
     });
 </script>

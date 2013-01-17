@@ -44,14 +44,13 @@ return array(
             'zf2-tip-me/email/email-notify-text' => __DIR__ . '/../view/zf2-tip-me/email/email-notify-text.phtml',
         ),
     ),
+
     'zf2tipme' => array(
-        'test_mode'       => false,
-        'error_log'       => './data/log/tipme.log',
-        'mail_dir'       => './data/mail/',
-        'recipient_name'  => 'RECIPIENT',
-        'refund_email'    => 'refunds@email.address',
-        'confirm_message' => 'Send a gift of ${{amount}} from your {{cardType}} card to {{recipient}}?' .
-                             '\nPressing "OK" will process the charge.',
+        'test_mode'            => false,
+        'error_log'            => './data/log/tipme.log',
+        'recipient_name'       => 'RECIPIENT',
+        'admin_email'          => 'admin@email.address',
+        'statement_descriptor' => 'STATEMENT_DESCRIPTOR',
         'tip_options' => array(
             'coffee' => array(
                 'title'   => 'Cup of Starbucks coffee (12 oz)',
@@ -68,6 +67,9 @@ return array(
                 'amount' => 9.99,
                 'img_src' => 'http://placehold.it/200x150',
             ),
+        ),
+        'mail_transport_options' => array(
+            'path' => './data/mail/',
         ),
     ),
 );

@@ -4,6 +4,9 @@ $this->inlineScript()
     ->appendFile("https://js.stripe.com/v1/")
     ->appendFile($this->basePath() . '/tip-me-assets/js/tip-me.js');
 $this->headLink()->appendStylesheet($this->basePath() . '/tip-me-assets/css/style.css');
+
+$confirmMessage = 'Send a gift of ${{amount}} from your {{cardType}} to {{recipient}}?' .
+                  '\nPressing "OK" will process the charge.';
 ?>
 
 <div class="page-header">
@@ -12,16 +15,18 @@ $this->headLink()->appendStylesheet($this->basePath() . '/tip-me-assets/css/styl
             allowtransparency="true" frameborder="0" scrolling="0" width="95" height="20" class="pull-right"></iframe>
     </h1>
 </div>
-<p>
-    If you've used any of my open source projects and are
-    feeling generous, donations of my favorite "coding fuel"
-    are much appreciated.
-</p>
+
+<div class="row">
+    <p class="span8">
+        If you have used one of my open source projects and are feeling generous,
+        donations of my favorite "coding fuel" are much appreciated.
+    </p>
+</div>
 
 <noscript>
     <div class="alert alert-error">
-        <h4>Error!</h4>
-        JavaScript must be enabled for this page to work.
+        <h2>Error!</h2>
+        <p>JavaScript must be enabled for this page to work.</p>
     </div>
 </noscript>
 
@@ -45,4 +50,10 @@ $this->placeholder('tipMe_securityMessage')->captureStart(); ?>
     </div>
 <?php $this->placeholder('tipMe_securityMessage')->captureEnd(); ?>
 
-<?php echo $this->partial('zf2-tip-me/partial/tip-form', array('form' => $this->form)); ?>
+<?php echo $this->partial(
+    'zf2-tip-me/partial/tip-form',
+    array(
+        'form'           => $this->form,
+        'confirmMessage' => $confirmMessage,
+    )
+); ?>

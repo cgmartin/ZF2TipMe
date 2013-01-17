@@ -47,11 +47,6 @@ class TipForm extends Form
         return $this->tipMeConfig['recipient_name'];
     }
 
-    public function getConfirmMessage()
-    {
-        return $this->tipMeConfig['confirm_message'];
-    }
-
     public function isTestMode()
     {
         return $this->tipMeConfig['test_mode'];
@@ -63,9 +58,7 @@ class TipForm extends Form
 
         // Tip Options
         $valueOptions = array();
-        $firstTipKey  = null;
         foreach ($tipOptions as $key => $tipOption) {
-            $firstTipKey = ($firstTipKey) ?: $key;
             $amount = sprintf('%.2f', $tipOption['amount']);
             $valueOptions[$key] = array(
                 'value'      => $key,
@@ -80,8 +73,7 @@ class TipForm extends Form
         $tipOptionRadio
             ->setAttribute('id', 'tipOption')
             ->setAttribute('required', true)
-            ->setValueOptions($valueOptions)
-            ->setValue($firstTipKey);
+            ->setValueOptions($valueOptions);
         $this->add($tipOptionRadio);
 
         // Email

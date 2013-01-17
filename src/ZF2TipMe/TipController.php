@@ -74,9 +74,10 @@ class TipController extends AbstractActionController
         $tipMeCfg = $this->getTipMeConfig();
         $tipItem  = $tipMeCfg['tip_options'][$data['tipOption']];
         return array(
-            'data'        => $data,
-            'tipItem'     => $tipItem,
-            'refundEmail' => $tipMeCfg['refund_email'],
+            'data'                => $data,
+            'tipItem'             => $tipItem,
+            'adminEmail'          => $tipMeCfg['admin_email'],
+            'statementDescriptor' => $tipMeCfg['statement_descriptor'],
         );
     }
 
@@ -160,8 +161,8 @@ class TipController extends AbstractActionController
         );
         $message = new Mail\Message();
         $message->setBody($content);
-        $message->setFrom($tipMeCfg['refund_email'], $tipMeCfg['recipient_name']);
-        $message->addTo($tipMeCfg['refund_email'], $tipMeCfg['recipient_name']);
+        $message->setFrom($tipMeCfg['admin_email'], $tipMeCfg['recipient_name']);
+        $message->addTo($tipMeCfg['admin_email'],   $tipMeCfg['recipient_name']);
         $message->setSubject('[TipMe] New gift! ' . $tipItem['title']);
 
         try {

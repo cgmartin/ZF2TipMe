@@ -4,10 +4,14 @@ Gift: <?php echo $this->tipItem['title']; ?>
 
 Amount: $<?php echo sprintf('%.2f', $this->tipItem['amount']); ?>
 
+
+Stripe Charge Id: <?php echo $this->charge['id']; ?>
+
+https://manage.stripe.com/
+
 <?php if (!empty($this->data['email'])) { ?>
 From: <?php echo $this->data['email'];
 } ?>
-
 
 <?php if (!empty($this->data['message'])) { ?>
 Message:
@@ -15,9 +19,7 @@ Message:
 } ?>
 
 
-Stripe Charge Id: <?php echo $this->charge['id']; ?>
 
-https://manage.stripe.com/
-
+--
 Thanks for using ZF2TipMe!
 https://github.com/cgmartin/ZF2TipMe

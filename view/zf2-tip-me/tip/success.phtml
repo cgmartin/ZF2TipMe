@@ -29,12 +29,13 @@ switch ($data['tipOption']) {
 </p>
 
 <p>
-    <strong>Your credit card has been charged $<?php echo sprintf('%.2f', $this->tipItem['amount']); ?>.</strong>
+    <strong>Your credit card has been charged $<?php echo sprintf('%.2f', $this->tipItem['amount']); ?>,
+    and will show "<?php echo $this->statementDescriptor; ?>" on your statement.</strong>
 </p>
 
 <p>
     If you change your mind, please feel free to email
-    me at <a href="mailto:<?php echo $this->refundEmail; ?>"><?php echo $this->refundEmail; ?></a>
+    me at <a href="mailto:<?php echo $this->adminEmail; ?>"><?php echo $this->adminEmail; ?></a>
     asking for a full refund.
 </p>
 
