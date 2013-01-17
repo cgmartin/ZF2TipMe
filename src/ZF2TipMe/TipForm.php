@@ -11,9 +11,9 @@ namespace ZF2TipMe;
 
 use Zend\InputFilter;
 use Zend\Form\Element;
-use Zend\Form\Form;
+use ZfcBase\Form\ProvidesEventsForm;
 
-class TipForm extends Form
+class TipForm extends ProvidesEventsForm
 {
     /** @var array */
     protected $tipMeConfig = array();
@@ -30,31 +30,15 @@ class TipForm extends Form
         $this->tipMeConfig = $tipMeConfig;
         $this->addElements();
         $this->addInputFilter();
-    }
-
-    public function getStripePublishKey()
-    {
-        return $this->tipMeConfig['stripe_publish_key'];
-    }
-
-    public function getTipOptions()
-    {
-        return $this->tipMeConfig['tip_options'];
-    }
-
-    public function getRecipientName()
-    {
-        return $this->tipMeConfig['recipient_name'];
-    }
-
-    public function isTestMode()
-    {
-        return $this->tipMeConfig['test_mode'];
+        $this->getEventManager()->trigger('init', $this);
     }
 
     protected function addElements()
     {
         $tipOptions = $this->getTipOptions();
+        uasort($tipOptions, function($a, $b) {
+            return $a['amount'] - $b['amount'];
+        });
 
         // Tip Options
         $valueOptions = array();
@@ -128,5 +112,25 @@ class TipForm extends Form
         $inputFilter->add($stripeTokenInput);
 
         $this->setInputFilter($inputFilter);
+    }
+
+    public function getStripePublishKey()
+    {
+        return $this->tipMeConfig['stripe_publish_key'];
+    }
+
+    public function getTipOptions()
+    {
+        return $this->tipMeConfig['tip_options'];
+    }
+
+    public function getRecipientName()
+    {
+        return $this->tipMeConfig['recipient_name'];
+    }
+
+    public function isTestMode()
+    {
+        return $this->tipMeConfig['test_mode'];
     }
 }

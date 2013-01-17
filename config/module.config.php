@@ -36,12 +36,7 @@ return array(
     ),
     'view_manager' => array(
         'template_path_stack' => array(
-            'ZF2TipMe' => __DIR__ . '/../view',
-        ),
-        'template_map' => array(
-            'zf2-tip-me/partial/tip-form'        => __DIR__ . '/../view/zf2-tip-me/partial/tip-form.phtml',
-            'zf2-tip-me/partial/test-data-btn'   => __DIR__ . '/../view/zf2-tip-me/partial/test-data-btn.phtml',
-            'zf2-tip-me/email/email-notify-text' => __DIR__ . '/../view/zf2-tip-me/email/email-notify-text.phtml',
+            'zf2tipme' => __DIR__ . '/../view',
         ),
     ),
 

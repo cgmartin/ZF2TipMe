@@ -74,6 +74,9 @@ class Module implements AutoloaderProviderInterface
     public function getServiceConfig()
     {
         return array(
+            'invokables' => array(
+                'ZF2TipMe\TipService' => 'ZF2TipMe\TipService',
+            ),
             'factories' => array(
                 'zf2tipme_tipform' => function($sm) {
                     $config = $sm->get('config');
