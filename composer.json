@@ -1,6 +1,6 @@
 {
     "name": "cgm/zf2-tip-me",
-    "description": "ZF2 module for accepting tips/donations",
+    "description": "ZF2 module for accepting tips/donations with Stripe",
     "type": "library",
     "license": "BSD-3-Clause",
     "keywords": [
