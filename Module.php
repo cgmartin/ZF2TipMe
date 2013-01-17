@@ -40,12 +40,14 @@ class Module implements AutoloaderProviderInterface
     public function getAutoloaderConfig()
     {
         return array(
+            /*
             'Zend\Loader\ClassMapAutoloader' => array(
                 __DIR__ . '/autoload_classmap.php',
                 array(
                     'Stripe' => './vendor/stripe-php/lib/Stripe/Stripe.php',
                 ),
             ),
+            */
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
 		            // if we're in a namespace deeper than one level we need to fix the \ in the path
