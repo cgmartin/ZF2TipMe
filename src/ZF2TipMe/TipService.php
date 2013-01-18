@@ -74,7 +74,7 @@ class TipService extends EventProvider implements ServiceManagerAwareInterface
         ));
 
         $this->getLogger()->debug(
-            $description . " [$" . sprintf('%.2f', $tipItem['amount']) . "]"
+            $description . " [$" . sprintf('%.2f', $tipItem['amount']) . "] " . $charge['id']
         );
 
         $this->sendEmailNotification($data, $charge);
