@@ -30,15 +30,15 @@ $confirmMessage = 'Send a gift of ${{amount}} from your {{cardType}} to {{recipi
 
 <?php
 // Email Note placeholder
-$this->placeholder('tipMe_emailNote')->captureStart(); ?>
+$this->placeholder('tipMe')->captureStart('SET', 'emailNote'); ?>
     <div class="input-large">
         <small class="muted">I will <strong>only</strong> use your email address to send a thank you message. No spam.</small>
     </div>
-<?php $this->placeholder('tipMe_emailNote')->captureEnd(); ?>
+<?php $this->placeholder('tipMe')->captureEnd(); ?>
 
 <?php
 // Security Message placeholder
-$this->placeholder('tipMe_securityMessage')->captureStart(); ?>
+$this->placeholder('tipMe')->captureStart('SET', 'securityMessage'); ?>
     <div>
         <small class="muted secured">
             <i class="icon-lock"></i> Secured using

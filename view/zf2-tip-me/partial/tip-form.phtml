@@ -95,7 +95,7 @@ if (!empty($errors)) {
                         ->setAttribute('placeholder', '@twitter')
                 ); ?>
             <small class="help-inline">(Optional)</small>
-            <?php echo $this->placeholder('tipMe_emailNote'); ?>
+            <?php echo $this->placeholder('tipMe')->emailNote; ?>
         </div>
     </div>
 
@@ -109,7 +109,7 @@ if (!empty($errors)) {
                     <span class="spin"></span></button>
 
             </div>
-            <?php echo $this->placeholder('tipMe_securityMessage'); ?>
+            <?php echo $this->placeholder('tipMe')->securityMessage; ?>
         </div>
     </div>
 </fieldset>
