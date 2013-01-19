@@ -172,7 +172,6 @@
             $('#cardCvc').val('123');
             $('#cardExpiryMonth').val('10');
             $('#cardExpiryYear').val('2043');
-            return false;
         });
 
         // Preload images
