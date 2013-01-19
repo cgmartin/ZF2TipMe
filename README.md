@@ -1,14 +1,13 @@
 ZF2TipMe
 ========
-Version 1.0.0 / Created by Christopher Martin
+Version 1.0.0 / Created by Christopher Martin /
+[BSD-3-Clause](https://github.com/cgmartin/ZF2TipMe/blob/master/LICENSE.txt) License
 
 
 Introduction
 ------------
 Accept donations directly on your site with this ZF2 module
 and a [free Stripe account](https://stripe.com).
-
-License: [BSD-3-Clause](https://github.com/cgmartin/ZF2TipMe/blob/master/LICENSE.txt).
 
 
 Features
