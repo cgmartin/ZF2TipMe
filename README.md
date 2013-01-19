@@ -2,10 +2,14 @@ ZF2TipMe
 ========
 Version 1.0.0 / Created by Christopher Martin
 
+
 Introduction
 ------------
 Accept donations directly on your site with this ZF2 module
 and a [free Stripe account](https://stripe.com).
+
+License: [BSD-3-Clause](https://github.com/cgmartin/ZF2TipMe/blob/master/LICENSE.txt).
+
 
 Features
 --------
@@ -16,7 +20,9 @@ Features
 * No PCI data is sent to or stored on your server, thanks to Stripe.
 
 **Stripe currently is only available in United States and Canada.**
+
 Get notified of when Stripe is [available in your country](https://stripe.com/global).
+
 
 Installation
 ------------
@@ -139,5 +145,5 @@ for testable credit cards.
 
 Like this module?
 -----------------
-[Tip me a coffee](https://zf2-cgm.rhcloud.com/tip-me). :)
+[Tip me a coffee](https://zf2-cgm.rhcloud.com/tip-me) :coffee: ;)
 
