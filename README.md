@@ -9,6 +9,7 @@ Introduction
 Accept donations directly on your site with this ZF2 module
 and a [free Stripe account](https://stripe.com).
 
+![ZF2TipMe example screenshot](https://www.evernote.com/shard/s47/sh/45f862ca-d884-49e9-ba86-8b0f3cac3c6d/b15e9b433830be159e43c54a8152ad35/res/c4bd9ff5-496f-441a-b1f5-404d20f6645f/skitch.png?resizeSmall&width=832)
 
 Features
 --------
