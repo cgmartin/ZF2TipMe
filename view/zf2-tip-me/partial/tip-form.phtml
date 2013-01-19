@@ -21,6 +21,14 @@ if (!empty($errors)) {
         <?php } ?>
     </legend>
 
+    <?php if ($this->form->isTestMode()) { ?>
+    <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Warning: Test Mode</strong><br/>
+        Only test transactions will be made. Use the "Fill Test Data" button for various test credit cards.
+    </div>
+    <?php } ?>
+
     <div class="control-group gift-group">
         <label class="control-label" for="tipOption">Choose a gift to give</label>
         <div class="controls">
