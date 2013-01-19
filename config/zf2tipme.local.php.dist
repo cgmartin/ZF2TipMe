@@ -1,8 +1,13 @@
 <?php
+$testMode = true;
 return array(
     'zf2tipme' => array(
-        'test_mode'          => true,
-        'stripe_secret_key'  => '{{{YOUR_STRIPE_SECRET_KEY_HERE}}}',
-        'stripe_publish_key' => '{{{YOUR_STRIPE_PUBLISHABLE_KEY_HERE}}}',
+        'test_mode'          => $testMode,
+        'stripe_secret_key'  => ($testMode)
+                              ? '{{{TEST_STRIPE_SECRET_KEY_HERE}}}'
+                              : '{{{LIVE_STRIPE_SECRET_KEY_HERE}}}',
+        'stripe_publish_key' => ($testMode)
+                              ? '{{{TEST_STRIPE_PUBLISHABLE_KEY_HERE}}}'
+                              : '{{{LIVE_STRIPE_PUBLISHABLE_KEY_HERE}}}',
     ),
 );

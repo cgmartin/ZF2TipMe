@@ -1,0 +1,29 @@
+<?php
+return array(
+    'zf2tipme' => array(
+        'error_log'            => './data/log/tipme.log',
+        'recipient_name'       => '{{{RECIPIENT}}}',           // Your name
+        'admin_email'          => '{{{admin@email.address}}}', // Displayed for refunds, and used for mail notifications
+        'statement_descriptor' => 'STATEMENT_DESCRIPTOR',      // Stripe account setting
+        'tip_options' => array(                                // Customize away...
+            'coffee' => array(
+                'title'   => 'Cup of Starbucks coffee (12 oz)',
+                'amount'  => 2.50,
+                'img_src' => 'http://placehold.it/200x150',
+            ),
+            'redbull' => array(
+                'title'  => 'Red Bull (20 oz, sugar free)',
+                'amount' => 4.48,
+                'img_src' => 'http://placehold.it/200x150',
+            ),
+            'music' => array(
+                'title'  => 'MP3 music (album)',
+                'amount' => 9.99,
+                'img_src' => 'http://placehold.it/200x150',
+            ),
+        ),
+        'mail_transport_options' => array(                     // Used with default 'zf2tipme_mailtransport' factory in Module.php
+            'path' => './data/mail/',
+        ),
+    ),
+);
