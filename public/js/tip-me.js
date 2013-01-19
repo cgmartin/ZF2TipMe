@@ -122,6 +122,7 @@
     tipMe.changeGiftImage = function() {
         var imgSrc = $('input[name=tipOption]:checked', $tipForm).data('tip-image');
         $('.gift-image', $tipForm).html('<img src="' + imgSrc + '"/>');
+        tipMe.hideError('gift');
     };
 
     tipMe.init = function(options) {
