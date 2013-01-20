@@ -32,7 +32,7 @@ Installation
 
 Add `"minimum-stability": "dev"` to your composer.json file, and run:
 
-```
+```bash
 # From project's base directory...
 % composer.phar require cgm/zf2-tip-me
 Please provide a version constraint for the cgm/config-admin requirement: dev-master
@@ -58,7 +58,7 @@ Out of the box, this module is configured to write log files to
 `./data/log` and `./data/mail`. The mail logs are used when you have
 chosen not to use a mail server.
 
-```
+```bash
 # From project's base directory...
 % cd data
 % mkdir log mail
@@ -70,7 +70,7 @@ There is an asset folder with CSS and JavaScript files.
 You can link them to `./public/tip-me-assets`, or potentially
 use a asset management module:
 
-```
+```bash
 # From the project's base dir...
 % cd public
 % ln -s ../vendor/cgm/zf2-tip-me/public tip-me-assets
@@ -80,7 +80,7 @@ use a asset management module:
 
 Copy the .global and .local dist files from the module config directory:
 
-```
+```bash
 # From project's base directory...
 % cd config/autoload
 % cp ../../vendor/cgm/zf2-tip-me/config/zf2tipme.global.php.dist ./zf2tipme.global.php

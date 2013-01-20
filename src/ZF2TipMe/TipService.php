@@ -59,7 +59,7 @@ class TipService extends EventProvider implements ServiceManagerAwareInterface
         ));
 
         $this->getEventManager()->trigger(__FUNCTION__, $this, array(
-            'formData' => $data, 'chargeData' => $chargeData
+            'formData' => $data, 'tipItem' => $tipItem, 'chargeData' => $chargeData
         ));
         try {
             // create the charge on Stripe's servers - this will charge the user's card
@@ -70,7 +70,7 @@ class TipService extends EventProvider implements ServiceManagerAwareInterface
             throw $e;
         }
         $this->getEventManager()->trigger(__FUNCTION__.'.post', $this, array(
-            'formData' => $data, 'chargeData' => $chargeData, 'charge' => $charge
+            'formData' => $data, 'tipItem' => $tipItem, 'chargeData' => $chargeData, 'charge' => $charge
         ));
 
         $this->getLogger()->debug(
