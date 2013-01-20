@@ -46,12 +46,17 @@ $this->placeholder('tipMe')->captureStart('SET', 'securityMessage'); ?>
             and 256-bit SSL encryption.
         </small>
     </div>
-<?php $this->placeholder('tipMe_securityMessage')->captureEnd(); ?>
+<?php $this->placeholder('tipMe')->captureEnd(); ?>
 
-<?php echo $this->partial(
-    'zf2-tip-me/partial/tip-form',
-    array(
-        'form'           => $this->form,
-        'confirmMessage' => $confirmMessage,
-    )
-); ?>
+<?php echo $this->partial('zf2-tip-me/partial/tip-form', array('form' => $this->form)); ?>
+
+<script type="text/javascript">
+    $(function() {
+        tipMe.init({
+            stripePubKey   : '<?php echo $this->form->getStripePublishKey(); ?>',
+            recipientName  : '<?php echo $this->form->getRecipientName(); ?>',
+            formSelector   : '#<?php echo $this->form->getName(); ?>',
+            confirmMessage : '<?php echo $confirmMessage; ?>'
+        });
+    });
+</script>
