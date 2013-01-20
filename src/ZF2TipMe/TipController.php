@@ -44,12 +44,13 @@ class TipController extends AbstractActionController
                 $data = $form->getData();
 
                 try {
-                    $tipService->sendPayment($data);
+                    $charge = $tipService->sendPayment($data);
 
                     $this->getSessionContainer()->successfulTip = array(
                         'email'     => $data['email'],
                         'message'   => $data['message'],
                         'tipOption' => $data['tipOption'],
+                        'chargeId'  => $charge['id'],
                     );
 
                     $response = $this->redirect()->toRoute('tip-me/success');
@@ -80,6 +81,9 @@ class TipController extends AbstractActionController
         $tipService = $this->getTipService();
         $tipMeCfg   = $tipService->getOptions();
         $tipItem    = $tipMeCfg['tip_options'][$data['tipOption']];
+
+        $this->getEventManager()->trigger(__FUNCTION__, $this, array('data' => $data, 'tipItem' => $tipItem));
+
         return array(
             'data'                => $data,
             'tipItem'             => $tipItem,
