@@ -46,7 +46,7 @@ if (!empty($errors)) {
         <label class="control-label" for="cardNumber">Credit Card</label>
         <div class="controls">
             <input id="cardNumber" type="text" pattern="\d*" size="20" maxlength="20" autocomplete="off"
-                   placeholder="●●●● ●●●● ●●●● ●●●●" required="required" />
+                   placeholder="●●●● ●●●● ●●●● ●●●●" required="required" class="input-large" />
             <span class="badge badge-important errors"></span>
         </div>
     </div>
@@ -54,12 +54,11 @@ if (!empty($errors)) {
     <div class="control-group expiration-group">
         <label class="control-label" for="cardExpiryMonth">Expiration</label>
         <div class="controls">
-            <input id="cardExpiryMonth" type="number" size="2" class="input-mini" min="1" max="12"
+            <input id="cardExpiryMonth" type="text" pattern="\d{1,2}" size="2" class="input-mini"
                    required="required" placeholder="MM" maxlength="2" autocomplete="off"/>
             <span> / </span>
-            <input id="cardExpiryYear" type="number" size="4" maxlength="4" class="input-mini"
-                   min="<?php echo date('Y') - 1; ?>" max="<?php echo date('Y') + 30; ?>"
-                   required="required" placeholder="YYYY" autocomplete="off"/>
+            <input id="cardExpiryYear" type="text" size="4" maxlength="4" pattern="\d{4}"
+                   class="input-mini" required="required" placeholder="YYYY" autocomplete="off"/>
             <span class="badge badge-important errors"></span>
         </div>
     </div>
