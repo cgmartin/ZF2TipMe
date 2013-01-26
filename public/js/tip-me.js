@@ -111,6 +111,9 @@
             )) {
                 // insert the token into the form so it gets submitted to the server
                 $('#stripeToken').val(token);
+                setTimeout(function() {
+                    tipMe.enableSubmitBtn();
+                }, 10000);
                 // and submit
                 $tipForm.get(0).submit();
             } else {

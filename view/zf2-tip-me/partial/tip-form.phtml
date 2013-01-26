@@ -54,10 +54,10 @@ if (!empty($errors)) {
     <div class="control-group expiration-group">
         <label class="control-label" for="cardExpiryMonth">Expiration</label>
         <div class="controls">
-            <input id="cardExpiryMonth" type="text" pattern="\d{1,2}" size="2" class="input-mini"
+            <input id="cardExpiryMonth" type="text" pattern="\d*" size="2" class="input-mini"
                    required="required" placeholder="MM" maxlength="2" autocomplete="off"/>
             <span> / </span>
-            <input id="cardExpiryYear" type="text" size="4" maxlength="4" pattern="\d{4}"
+            <input id="cardExpiryYear" type="text" size="4" maxlength="4" pattern="\d*"
                    class="input-mini" required="required" placeholder="YYYY" autocomplete="off"/>
             <span class="badge badge-important errors"></span>
         </div>
@@ -66,8 +66,8 @@ if (!empty($errors)) {
     <div class="control-group cardCvc-group">
         <label class="control-label" for="cardCVC">CVC</label>
         <div class="controls">
-            <input id="cardCvc" type="number" size="4" maxlength="4" autocomplete="off"
-                   min="100" max="9999" required="required" class="input-mini no-spinner"/>
+            <input id="cardCvc" type="text" size="4" maxlength="4" autocomplete="off"
+                   pattern="\d*" required="required" class="input-mini no-spinner"/>
             <span class="card-images"></span>
             <span class="badge badge-important errors"></span>
         </div>
