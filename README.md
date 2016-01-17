@@ -1,5 +1,8 @@
 ZF2TipMe
 ========
+
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
 Version 1.0.0 / Created by Christopher Martin /
 [BSD-3-Clause](https://github.com/cgmartin/ZF2TipMe/blob/master/LICENSE.txt) License
 
